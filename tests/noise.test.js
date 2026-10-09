@@ -1,0 +1,21 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {createNoise,seededRandom,fbm,gradient,curl,cross,createFields,rk2,magnitude,createVectorSampler} from '../src/lib/noise.js';
+import {defaults} from '../src/lib/lessons.js';
+const close=(a,b,tolerance=1e-7)=>assert.ok(Math.abs(a-b)<tolerance,`${a} ≈ ${b}`);
+test('same seed reproduces field, including seed zero',()=>{for(const seed of [0,42,4294967295]){const a=createNoise(seed),b=createNoise(seed);for(let i=0;i<20;i++)assert.equal(a(i*.137,-i*.31,.72),b(i*.137,-i*.31,.72));}});
+test('different seeds produce distinct fields',()=>assert.notEqual(createNoise(42)(.3,.7,-.6),createNoise(43)(.3,.7,-.6)));
+test('integer lattice values vanish and negative coordinates are continuous',()=>{const n=createNoise(42);for(let i=-4;i<4;i++)close(n(i,2,-3),0);close(n(-1-1e-7,.33,.72),n(-1+1e-7,.33,.72),1e-6);});
+test('first derivatives agree across a lattice boundary',()=>{const n=createNoise(42);const a=gradient(n,-1-1e-6,.42,.78,1e-5),b=gradient(n,-1+1e-6,.42,.78,1e-5);a.forEach((v,i)=>close(v,b[i],1e-4));});
+test('permutation repeats at 256 noise-coordinate units',()=>{const n=createNoise(12);close(n(.25,.55,.77),n(256.25,.55,.77));});
+test('one octave and zero gain reduce to base noise',()=>{const n=createNoise(3);const expected=n(.3*1.2,.4*1.2,.5*1.2);close(fbm(n,.3,.4,.5,{frequency:1.2,octaves:1}),expected);close(fbm(n,.3,.4,.5,{frequency:1.2,gain:0,octaves:7}),expected);});
+test('normalized fBm equals explicit weighted average',()=>{const n=createNoise(3),x=.31,y=.62,z=.77;close(fbm(n,x,y,z,{octaves:3,gain:.5,lacunarity:2}), (n(x,y,z)+.5*n(x*2,y*2,z*2)+.25*n(x*4,y*4,z*4))/1.75);});
+test('zero warp matches unwarped four-layer noise',()=>{const f=createFields(42),p={...defaults,lesson:'warp',warpStrength:0};close(f.scalar(.33,.37,.82,p),fbm(f.noise,.33,.37,.82,{...p,octaves:4,lacunarity:2,gain:.5}));});
+test('curl signs match analytic rotational potential',()=>{const result=curl((x,y)=>[0,0,(x*x+y*y)/2],.4,.7,.9);close(result[0],.7);close(result[1],-.4);close(result[2],0);});
+test('gradient cross of coordinate fields is positive z',()=>{const result=cross(gradient(x=>x,.2,.3,.4),gradient((_x,y)=>y,.2,.3,.4));result.forEach((v,i)=>close(v,i===2?1:0));});
+test('matching discrete derivatives of curl cancel divergence',()=>{const A=(x,y,z)=>[Math.sin(y*z),Math.sin(z*x),Math.sin(x*y)],h=.004,v=(x,y,z)=>curl(A,x,y,z,h),p=[.32,.75,.46];let div=0;for(let axis=0;axis<3;axis++){const a=[...p],b=[...p];a[axis]+=h;b[axis]-=h;div+=(v(...a)[axis]-v(...b)[axis])/(2*h);}close(div,0,1e-8);});
+test('all selectable fields remain finite over sampled domain',()=>{const fields=createFields(0);for(const lesson of ['noise','octaves','warp','flow'])for(const flowType of ['gradient','curl','cross'])for(let i=0;i<10;i++){const p={...defaults,lesson,flowType};assert.ok(Number.isFinite(fields.scalar(i*.31,-.2,i*-.17,p)));assert.ok(Number.isFinite(magnitude(fields.vector(i*.31,-.2,i*-.17,p))));}});
+test('constant velocity midpoint integration is exact',()=>assert.deepEqual(rk2([1,2,3],.5,()=>[2,4,6]),[2,4,6]));
+test('fixed-step seeded particle replay is reproducible',()=>{function run(){const r=seededRandom(9),f=createFields(9),p={...defaults,lesson:'flow',frequency:.65};let position=[r(),r(),r()];for(let i=0;i<60;i++)position=rk2(position,1/60,(...xyz)=>f.vector(...xyz,p));return position;}assert.deepEqual(run(),run());});
+
+test('trilinear particle sampler reproduces affine fields',()=>{const f=createVectorSampler((x,y,z)=>[2*x+y,3*z-x,y-z],{resolution:8,extent:3.3});const p=[.33,-.87,1.22],actual=f(...p),expected=[2*p[0]+p[1],3*p[2]-p[0],p[1]-p[2]];actual.forEach((v,i)=>close(v,expected[i],1e-6));});

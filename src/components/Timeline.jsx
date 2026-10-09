@@ -1,0 +1,5 @@
+import { RotateCcw, Pause, Play } from 'lucide-react';
+import {DURATION} from '../lib/animation.js';
+export default function Timeline({time,playing,onSeek,onToggle,flow=false}){
+ return <div className="timeline" aria-label="Animation timeline"><button className="timeline-play" aria-label={playing?'Pause animation':'Play animation'} onClick={onToggle}>{playing?<Pause size={14}/>:<Play size={14}/>}</button><label htmlFor="animation-time">{flow?'Field time':'Time'}</label><input aria-label={flow?'Field time':'Time'} id="animation-time" type="range" min="0" max={DURATION} step=".05" value={time} onChange={e=>onSeek(Number(e.target.value))} aria-valuetext={`${time.toFixed(2)} seconds`} style={{'--progress':`${time/DURATION*100}%`}}/><output htmlFor="animation-time">{time.toFixed(2)}<span> / 60 s</span></output><button className="timeline-reset" aria-label="Reset animation time" title={flow?'Reset time and particles':'Reset time'} onClick={()=>onSeek(0)}><RotateCcw size={14}/></button></div>;
+}

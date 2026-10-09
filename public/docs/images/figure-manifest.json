@@ -1,0 +1,356 @@
+{
+  "generator": "generate-doc-figures.mjs",
+  "version": 1,
+  "deterministic": true,
+  "sourceHashes": {
+    "noise.js": "ff0b3055833606d05669bf2cea519ece6cba13f30812aca562a1c7876034416b",
+    "animation.js": "e23f707809c1c060f4cd1bed24f87e9c3ad3c2c000bbfad334921eebf82ab66e",
+    "lessons.js": "68557c48f138c9f18ff18949717f0374e82b5b70b6319edd45aaab4707bb44a9"
+  },
+  "figures": [
+    {
+      "file": "noise-algorithms.svg",
+      "title": "One field, three value transforms",
+      "caption": "Three xz heatmaps show the app’s Gradient, Billow, and Ridged scalar outputs for seed 42, frequency 1.2, y = 0.37, and time 0. All maps cover x,z in [−2.5,2.5] and use the same [−1,1] color scale. Each color cell is one center sample; none exceeds the displayed scale. Billow equals 2|1.55 noise|−0.7 and Ridged is its exact negative.",
+      "seed": 42,
+      "frequency": 1.2,
+      "slice": {
+        "y": 0.37
+      },
+      "time": 0,
+      "domain": {
+        "x": [
+          -2.5,
+          2.5
+        ],
+        "z": [
+          -2.5,
+          2.5
+        ]
+      },
+      "sampling": {
+        "resolution": 64,
+        "location": "cell centers"
+      },
+      "colorRange": [
+        -1,
+        1
+      ],
+      "stats": {
+        "gradient": {
+          "min": -0.79517233065518,
+          "max": 0.6992089611471812
+        },
+        "billow": {
+          "min": -0.6999551780476182,
+          "max": 0.89034466131036
+        },
+        "ridged": {
+          "min": -0.89034466131036,
+          "max": 0.6999551780476182
+        }
+      },
+      "formula": "n=1.55*noise(f*x,f*y,f*z); gradient=n; billow=2*abs(n)-0.7; ridged=0.7-2*abs(n)"
+    },
+    {
+      "file": "frequency-amplitude.svg",
+      "title": "Two controls, two different effects",
+      "caption": "Two controlled line plots use seed 42 and the x-axis slice y=z=0. Left: frequency 0.65 versus 1.6 at amplitude 1. Right: amplitude 0.5 versus 1.5 at frequency 0.9. Both cover x in [−3,3] and scaled value in [−0.6,0.6]. Scaled value is amplitude times the app’s Gradient scalar value; amplitude is applied outside createFields.scalar. Shape-specific geometric rendering factors are omitted; terrain applies an additional factor of 1.65.",
+      "seed": 42,
+      "slice": {
+        "y": 0,
+        "z": 0
+      },
+      "time": 0,
+      "domain": {
+        "x": [
+          -3,
+          3
+        ]
+      },
+      "scaledValueRange": [
+        -0.6,
+        0.6
+      ],
+      "frequencyPanel": {
+        "frequencies": [
+          0.65,
+          1.6
+        ],
+        "amplitude": 1
+      },
+      "amplitudePanel": {
+        "frequency": 0.9,
+        "amplitudes": [
+          0.5,
+          1.5
+        ]
+      },
+      "samplesPerCurve": 721,
+      "stats": {
+        "frequency_0.65": {
+          "min": -0.16083931866546053,
+          "max": 0.2992464249026357
+        },
+        "frequency_1.6": {
+          "min": -0.2992385388313478,
+          "max": 0.2992385388313477
+        },
+        "amplitude_0.5": {
+          "min": -0.14962321245131788,
+          "max": 0.14961135810063383
+        },
+        "amplitude_1.5": {
+          "min": -0.44886963735395363,
+          "max": 0.4488340743019015
+        }
+      },
+      "formula": "scaledValue=A*1.55*noise(f*x,0,0)",
+      "caveat": "Controlled output-scaling diagram. Shape-specific geometric rendering factors are omitted; terrain uses an additional factor of 1.65."
+    },
+    {
+      "file": "octave-composition.svg",
+      "title": "Build detail from weighted layers",
+      "caption": "The four upper plots show gain^i times base noise at frequency times lacunarity^i, divided by the common weight sum 1.875, for i=0,1,2,3. The lower plot is the app’s four-octave fbm result, verified to equal the sum within floating-point precision. Seed 42, frequency 0.7, lacunarity 2, gain 0.5, y=0.37, z=0.81, amplitude 1. Every plot uses x in [−3,3] and output in [−0.4,0.4]. The fBm branch uses raw base noise, without the Gradient lesson’s factor 1.55.",
+      "seed": 42,
+      "octaves": 4,
+      "frequency": 0.7,
+      "lacunarity": 2,
+      "gain": 0.5,
+      "weightSum": 1.875,
+      "slice": {
+        "y": 0.37,
+        "z": 0.81
+      },
+      "amplitude": 1,
+      "domain": {
+        "x": [
+          -3,
+          3
+        ]
+      },
+      "verticalRange": [
+        -0.4,
+        0.4
+      ],
+      "samplesPerCurve": 721,
+      "maxSumError": 5.551115123125783e-17,
+      "stats": {
+        "octave_1": {
+          "min": -0.1994797613828502,
+          "max": 0.0011594135724509217
+        },
+        "octave_2": {
+          "min": -0.08629396005443636,
+          "max": 0.1142065677681787
+        },
+        "octave_3": {
+          "min": -0.052888045988761165,
+          "max": 0.06028200148879621
+        },
+        "octave_4": {
+          "min": -0.03083518999733601,
+          "max": 0.02681366296252473
+        },
+        "sum": {
+          "min": -0.2651881442190456,
+          "max": 0.11707132492145812
+        }
+      },
+      "formula": "contribution_i=gain^i*noise(p*frequency*lacunarity^i)/sum(gain^j), i,j=0..3; fBm=sum(contribution_i)"
+    },
+    {
+      "file": "domain-warping.svg",
+      "title": "Bend the sampling coordinates",
+      "caption": "Four xz heatmaps compare warp strengths 0 and 1.6 for Terrain and Wood at seed 42, frequency 0.8, y=0.37, time 0. Maps cover x,z in [−2.5,2.5] with a shared [−0.65,0.65] color scale. Terrain samples normalized four-octave fBm with lacunarity 2 and gain 0.5 after the coordinate warp. Wood is 0.65 sin(4π(f hypot(qx,qz)+0.25 noise(f q))). Wood has a noise phase perturbation even at zero warp strength; it is not a pure unperturbed ring field.",
+      "seed": 42,
+      "frequency": 0.8,
+      "slice": {
+        "y": 0.37
+      },
+      "time": 0,
+      "domain": {
+        "x": [
+          -2.5,
+          2.5
+        ],
+        "z": [
+          -2.5,
+          2.5
+        ]
+      },
+      "warpStrengths": [
+        0,
+        1.6
+      ],
+      "sampling": {
+        "resolution": 64,
+        "location": "cell centers"
+      },
+      "colorRange": [
+        -0.65,
+        0.65
+      ],
+      "terrain": {
+        "octaves": 4,
+        "lacunarity": 2,
+        "gain": 0.5
+      },
+      "stats": {
+        "terrain_0": {
+          "min": -0.2783345281165092,
+          "max": 0.32249526724546734
+        },
+        "terrain_1.6": {
+          "min": -0.2985715710940105,
+          "max": 0.34537268817491323
+        },
+        "wood_0": {
+          "min": -0.6499992743440074,
+          "max": 0.6499999999386069
+        },
+        "wood_1.6": {
+          "min": -0.6499999990210239,
+          "max": 0.6499998553956283
+        }
+      },
+      "formula": {
+        "warp": "qx=x+w*noise_42(.65*x+17,.65*y,.65*z); qy=y+w*noise_1055(.65*x,.65*y+31,.65*z); qz=z+w*noise_2071(.65*x,.65*y,.65*z+9)",
+        "terrain": "fbm(noise_42,q,{frequency:.8,octaves:4,lacunarity:2,gain:.5})",
+        "wood": "0.65*sin(4*pi*(frequency*hypot(qx,qz)+0.25*noise_42(frequency*q)))"
+      }
+    },
+    {
+      "file": "vector-fields.svg",
+      "title": "Three ways to build a vector field",
+      "caption": "Three panels sample the app’s Gradient, Curl, and Gradient cross 3D vector fields on y=0.37 at seed 42 and frequency 0.65. Each panel contains an 11×11 center-sampled grid over x,z in [−2,2]. Arrow horizontal and vertical components are proportional to vx and vz using one shared linear scale, without normalizing or clipping individual vectors. Color shows the full 3D vector magnitude, including vy. These are projected components on a slice, not complete two-dimensional fields, and the figure makes no 2D divergence claim. Gradient uses centered differences h=0.005; curl uses h=0.008.",
+      "seed": 42,
+      "frequency": 0.65,
+      "slice": {
+        "y": 0.37
+      },
+      "time": 0,
+      "domain": {
+        "x": [
+          -2,
+          2
+        ],
+        "z": [
+          -2,
+          2
+        ]
+      },
+      "sampling": {
+        "resolution": 11,
+        "location": "cell centers"
+      },
+      "arrowComponents": [
+        "vx",
+        "vz"
+      ],
+      "arrowPixelsPerVectorUnit": 16.945831699471604,
+      "maximumArrowLength": 22,
+      "individualVectorNormalization": false,
+      "colorQuantity": "sqrt(vx^2+vy^2+vz^2)",
+      "colorRange": [
+        0,
+        1.5
+      ],
+      "gradientDifferenceStep": 0.005,
+      "curlDifferenceStep": 0.008,
+      "stats": {
+        "gradient": {
+          "maximumMagnitude": 1.0623766527610992,
+          "maximumProjectedMagnitude": 0.8765147571043729
+        },
+        "curl": {
+          "maximumMagnitude": 1.4982454458160877,
+          "maximumProjectedMagnitude": 1.298254366629051
+        },
+        "cross": {
+          "maximumMagnitude": 0.7466057507546695,
+          "maximumProjectedMagnitude": 0.737654473949918
+        }
+      },
+      "potentials": {
+        "a": "noise_42(f*x+2.1,f*y+8.3,f*z+4.7)",
+        "b": "noise_1055(f*x+5.1,f*y+1.3,f*z+9.7)",
+        "c": "noise_2071(f*x+7.1,f*y+3.3,f*z+1.7)"
+      },
+      "formula": {
+        "gradient": "grad(a)",
+        "curl": "curl([a,b,c])",
+        "cross": "cross(grad(a),grad(b))"
+      },
+      "caveat": "The omitted y component and y derivatives matter. This projection does not establish 2D divergence freedom. No advection, cache interpolation, constant-speed transform, or surface projection is shown."
+    },
+    {
+      "file": "bounded-time.svg",
+      "title": "Time moves the sampling window",
+      "caption": "Three heatmaps sample the app’s animatedScalar at times 0,15,30 seconds, with seed 42, Gradient algorithm, frequency 1.2, original slice y=0.37, x,z in [−2.5,2.5], and shared color scale [−1,1]. Animation adds offset(t)=(0.9 sin θ,0.65(1−cos θ),0.75 sin 2θ), where θ=2πt/60, to the complete sampling point before scalar evaluation. Offsets at the shown times are (0,0,0), (0.9,0.65,0), and (0,1.3,0), up to floating-point roundoff. Time is clamped to [0,60]; the exact endpoint offset is zero. This is translated 3D noise, not four-dimensional noise. A finite timeline returning to the initial field is not evidence that advected particles return to their initial positions.",
+      "seed": 42,
+      "frequency": 1.2,
+      "algorithm": "gradient",
+      "originalSlice": {
+        "y": 0.37
+      },
+      "domain": {
+        "x": [
+          -2.5,
+          2.5
+        ],
+        "z": [
+          -2.5,
+          2.5
+        ]
+      },
+      "sampling": {
+        "resolution": 64,
+        "location": "cell centers"
+      },
+      "times": [
+        0,
+        15,
+        30
+      ],
+      "offsets": {
+        "0": [
+          0,
+          0,
+          0
+        ],
+        "15": [
+          0.9,
+          0.6499999999999999,
+          9.184850993605148e-17
+        ],
+        "30": [
+          1.1021821192326179e-16,
+          1.3,
+          -1.8369701987210297e-16
+        ]
+      },
+      "duration": 60,
+      "colorRange": [
+        -1,
+        1
+      ],
+      "stats": {
+        "0": {
+          "min": -0.79517233065518,
+          "max": 0.6992089611471812
+        },
+        "15": {
+          "min": -0.7550400494904299,
+          "max": 0.6914916926972227
+        },
+        "30": {
+          "min": -0.7915990397304598,
+          "max": 0.7183967870961665
+        }
+      },
+      "formula": "animatedScalar(p,t)=scalar(p+offset(clamp(t,0,60))); offset(t)=[.9*sin(2*pi*t/60),.65*(1-cos(2*pi*t/60)),.75*sin(4*pi*t/60)]; exact offset=0 at t=0 and t=60",
+      "caveat": "No new seed, fourth noise coordinate, or automatic looping is shown. At t=15 and t=30 the z offsets happen to be zero."
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+import { useCallback, useState } from 'react';
+import { RotateCcw, Pause, Play } from 'lucide-react';
+import Controls from './components/Controls.jsx';
+import SceneView from './components/SceneView.jsx';
+import Timeline from './components/Timeline.jsx';
+import LearningNotes from './components/LearningNotes.jsx';
+import { defaults, lessons, presets } from './lib/lessons.js';
+function Brand(){return <div className="brand"><svg width="51" height="44" viewBox="0 0 60 50" aria-hidden="true"><path d="M2 17c14 0 12-13 28-13s14 13 28 13M2 29c14 0 12-13 28-13s14 13 28 13M2 41c14 0 12-13 28-13s14 13 28 13"/></svg><div><h1>Noise Lab</h1><p>A field guide to procedural worlds</p></div></div>;}
+function initialParams(){return {...defaults,...(window.matchMedia('(max-width: 760px)').matches?{particleCount:400,vectorDensity:5}:{})};}
+export default function App(){
+ const [params,setParams]=useState(initialParams),[playing,setPlaying]=useState(()=>!window.matchMedia('(prefers-reduced-motion: reduce)').matches),[viewVersion,setViewVersion]=useState(0),[stats,setStats]=useState({}),[time,setTime]=useState(0),[timeRequest,setTimeRequest]=useState(null),[particleReset,setParticleReset]=useState(0);
+ const originalLesson=lessons.find(l=>l.id===params.lesson),lesson=params.lesson==='flow'&&params.flowSurface!=='volume'?{...originalLesson,title:`Currents on a ${params.flowSurface}`,subtitle:'Tangential directions. Paths constrained to the surface.'}:originalLesson;
+ const onPlaybackEnd=useCallback(()=>setPlaying(false),[]);
+ const seekTime=useCallback(value=>{setPlaying(false);setTime(value);setTimeRequest(previous=>({value,serial:(previous?.serial||0)+1}));},[]);
+ const shapeKey=params.lesson==='flow'?'flowSurface':'shape';
+ const shapeOptions=params.lesson==='flow'?['volume','sphere','torus']:['terrain','sphere','torus'];const onChange=useCallback((name,value)=>setParams(p=>({...p,[name]:value})),[]);
+ function selectLesson(id){setParams(p=>({...p,...presets[id],lesson:id}));}
+ function onTabKey(event,index){if(event.key==='ArrowRight'||event.key==='ArrowLeft'){event.preventDefault();const next=(index+(event.key==='ArrowRight'?1:-1)+lessons.length)%lessons.length;selectLesson(lessons[next].id);document.getElementById(`tab-${lessons[next].id}`).focus();}}
+ return <div className="app-shell"><header className="app-header"><Brand/><div className="header-actions"><button className="outline-button" aria-label="Reset view" onClick={()=>setViewVersion(v=>v+1)}><RotateCcw size={15}/><span>Reset view</span></button><button className="outline-button play-button" onClick={()=>setPlaying(v=>!v)}>{playing?<Pause size={15}/>:<Play size={15}/>}<span>{playing?'Pause':'Play'}</span></button></div></header>
+ <nav className="lesson-tabs" role="tablist" aria-label="Noise experiments">{lessons.map((l,i)=><button id={`tab-${l.id}`} key={l.id} role="tab" aria-selected={params.lesson===l.id} aria-controls="experiment-panel" tabIndex={params.lesson===l.id?0:-1} className={params.lesson===l.id?'active':''} onClick={()=>selectLesson(l.id)} onKeyDown={e=>onTabKey(e,i)}><span>{l.number}</span>{l.label}</button>)}</nav>
+ <main><section className="workspace" id="experiment-panel" role="tabpanel" aria-labelledby={`tab-${params.lesson}`}><div className="viewport animated"><div className="viewport-heading"><h2>{lesson.title}</h2><p>{lesson.subtitle}</p></div><div className="shape-picker" aria-label={params.lesson==='flow'?'Flow domain':'Surface shape'}>{shapeOptions.map(shape=><button key={shape} aria-pressed={params[shapeKey]===shape} className={params[shapeKey]===shape?'selected':''} onClick={()=>onChange(shapeKey,shape)}>{shape.charAt(0).toUpperCase()+shape.slice(1)}</button>)}</div><SceneView params={params} playing={playing} viewVersion={viewVersion} onStats={setStats} onTime={setTime} onPlaybackEnd={onPlaybackEnd} timeRequest={timeRequest} particleReset={particleReset}/><Timeline flow={params.lesson==='flow'} time={time} playing={playing} onSeek={seekTime} onToggle={()=>setPlaying(v=>!v)}/></div><Controls onRestartFlow={()=>setParticleReset(v=>v+1)} params={params} onChange={onChange} stats={stats} onReset={()=>setParams(p=>({...initialParams(),...presets[p.lesson],lesson:p.lesson,seed:p.seed}))}/></section><LearningNotes lesson={lesson} params={params}/></main>
+ <footer className="status-bar"><span><i/>Deterministic <b>·</b> Seed {params.seed}</span><span>{params.lesson==='flow'?`${stats.arrows||0} arrows · ${stats.particles||0} particles`:`${(stats.vertices||0).toLocaleString('en-US')} vertices · Animated 3D field`}</span><a className="footer-guide" href="/docs/">Illustrated guide ↗</a><a className="footer-source" href="/noise-lab-source.zip" download>Source project ↓</a></footer></div>;
+}
