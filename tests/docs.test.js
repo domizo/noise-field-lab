@@ -62,3 +62,17 @@ test('Markdown guide is complete, illustrated and independent of private hosting
  assert.doesNotMatch(md,/https?:\/\/[^\s)]+\.chatgpt\.site|\/workspace\/|\/Users\//);
  for(const term of ['Gradient noise','Building with octaves','Domain warping','vector fields','Flow on a sphere','Moving through time'])assert.ok(md.includes(term),term);
 });
+
+
+test('source links use the private repository without a bundled source archive',async()=>{
+ const repository='https://github.com/domizo/noise-field-lab';
+ const app=await fs.readFile(path.join(root,'src/App.jsx'),'utf8');
+ const readme=await fs.readFile(path.join(root,'README.md'),'utf8');
+ for(const content of [app,html,readme]){
+  assert.ok(content.includes(repository));assert.doesNotMatch(content,/href=["'][^"']*noise-lab-source\.zip/);
+ }
+ assert.match(app,/Private repository; access is required/);assert.match(html,/Private repository; access is required/);
+ await assert.rejects(fs.access(path.join(root,'public/noise-lab-source.zip')),{code:'ENOENT'});
+ const pkg=JSON.parse(await fs.readFile(path.join(root,'package.json'),'utf8'));
+ for(const script of Object.values(pkg.scripts))assert.doesNotMatch(script,/noise-lab-source|\bzip\b/);
+});

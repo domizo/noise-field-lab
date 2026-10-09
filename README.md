@@ -128,7 +128,7 @@ npm run preview       # serve the production build
 npm run docs:figures   # regenerate the six sampled SVG diagrams
 ```
 
-All guide text and images are included in the repository. Read the [complete Markdown guide](docs/NOISE_GUIDE.md) directly on GitHub, or open [the HTML edition](public/docs/index.html) locally. Neither depends on access to a hosted private Site.
+The [source repository](https://github.com/domizo/noise-field-lab) is private; viewing it requires repository access. All guide text and images are included in the repository. Read the [complete Markdown guide](docs/NOISE_GUIDE.md) directly on GitHub, or open [the HTML edition](public/docs/index.html) locally. Neither depends on access to a hosted private Site.
 
 ## Controls at a glance
 

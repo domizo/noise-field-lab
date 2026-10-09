@@ -3,3 +3,4 @@ dist/
 .sites-runtime/
 .qa/
 *.tar.gz
+public/noise-lab-source.zip
