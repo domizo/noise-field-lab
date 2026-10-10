@@ -64,14 +64,19 @@ test('Markdown guide is complete, illustrated and independent of private hosting
 });
 
 
-test('source links use the private repository without a bundled source archive',async()=>{
+test('source links use the repository without a bundled source archive',async()=>{
  const repository='https://github.com/domizo/noise-field-lab';
  const app=await fs.readFile(path.join(root,'src/App.jsx'),'utf8');
  const readme=await fs.readFile(path.join(root,'README.md'),'utf8');
  for(const content of [app,html,readme]){
   assert.ok(content.includes(repository));assert.doesNotMatch(content,/href=["'][^"']*noise-lab-source\.zip/);
  }
- assert.match(app,/Private repository; access is required/);assert.match(html,/Private repository; access is required/);
+ assert.match(app,/Browse the source repository/);assert.match(html,/Browse the source repository/);
+ for(const file of ['README.md','README.ja.md']){
+  const content=await fs.readFile(path.join(root,file),'utf8');
+  assert.ok(content.includes('git clone https://github.com/domizo/noise-field-lab.git\ncd noise-field-lab\nnpm ci\nnpm run dev'),file);
+  assert.doesNotMatch(content,/https?:\/\/[^\s)]+\.chatgpt\.site|hosted private Site|非公開 Site/);
+ }
  await assert.rejects(fs.access(path.join(root,'public/noise-lab-source.zip')),{code:'ENOENT'});
  const pkg=JSON.parse(await fs.readFile(path.join(root,'package.json'),'utf8'));
  for(const script of Object.values(pkg.scripts))assert.doesNotMatch(script,/noise-lab-source|\bzip\b/);

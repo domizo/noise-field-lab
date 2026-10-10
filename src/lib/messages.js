@@ -19,7 +19,7 @@ export const japanese = {
   "{vertices} vertices · Animated 3D field": "頂点 {vertices} 個 · 時間変化する3D場",
   "Illustrated guide ↗": "図解ガイド ↗",
   "Source on GitHub ↗": "GitHubのソース ↗",
-  "Private repository; access is required": "非公開リポジトリです。閲覧にはアクセス権が必要です",
+  "Browse the source repository": "ソースリポジトリを見る",
   "Language": "表示言語",
   "Field parameters": "場のパラメータ",
   "Shape the flow": "流れを調整する",

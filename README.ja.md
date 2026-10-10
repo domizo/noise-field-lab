@@ -122,14 +122,18 @@ v_tangent = v − normal × dot(normal, v)
 
 ## クイックスタート
 
-Node.js **20.19 以上または 22.12 以上**、npm、**WebGL 2** 対応ブラウザーが必要です。
+Git、Node.js **20.19 以上または 22.12 以上**、npm、**WebGL 2** 対応ブラウザーが必要です。
+
+ターミナルで、次のコマンドを順番に実行してください。
 
 ```sh
+git clone https://github.com/domizo/noise-field-lab.git
+cd noise-field-lab
 npm ci
 npm run dev
 ```
 
-Vite が表示する URL を開いてください。ローカル実行にバックエンド、API キー、有料サービス、アプリのアカウントは必要ありません。
+ターミナルに Vite が表示するローカル URL（通常は `http://localhost:5173`）をブラウザーで開いてください。ローカル実行にバックエンド、API キー、有料サービス、アプリのアカウントは必要ありません。
 
 ```sh
 npm run check         # lint、数値・幾何・ドキュメントのテスト、本番ビルド
@@ -138,7 +142,7 @@ npm run preview       # 本番ビルドを配信
 npm run docs:figures   # サンプリング図と全7点の日本語ラベルを再生成
 ```
 
-[ソースリポジトリ](https://github.com/domizo/noise-field-lab)は非公開のため、閲覧にはリポジトリへのアクセス権が必要です。ガイドの文章と画像はすべてリポジトリに含まれています。[完全版 Markdown ガイド](docs/NOISE_GUIDE.ja.md)は GitHub 上でそのまま読めます。[HTML 版](public/docs/ja/index.html)をローカルで開くこともできます。どちらも、ホストされた非公開 Site へのアクセスには依存しません。
+ガイドの文章と画像はすべて[ソースリポジトリ](https://github.com/domizo/noise-field-lab)に含まれています。[完全版 Markdown ガイド](docs/NOISE_GUIDE.ja.md)は GitHub 上でそのまま読めます。[HTML 版](public/docs/ja/index.html)をローカルで開くこともできます。
 
 ## 主な操作
 

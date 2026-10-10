@@ -122,14 +122,18 @@ Both the midpoint and endpoint of each integration step are projected back onto 
 
 ## Quick start
 
-Requires Node.js **20.19+ or 22.12+**, npm, and a browser with **WebGL 2**.
+Requires Git, Node.js **20.19+ or 22.12+**, npm, and a browser with **WebGL 2**.
+
+Run these commands in a terminal:
 
 ```sh
+git clone https://github.com/domizo/noise-field-lab.git
+cd noise-field-lab
 npm ci
 npm run dev
 ```
 
-Open the URL printed by Vite. No backend, API key, paid service or application account is needed to run the project locally.
+Open the local URL printed by Vite in your terminal (usually `http://localhost:5173`) in your browser. No backend, API key, paid service or application account is needed to run the project locally.
 
 ```sh
 npm run check         # lint, numerical/geometry/docs tests, production build
@@ -138,7 +142,7 @@ npm run preview       # serve the production build
 npm run docs:figures   # regenerate sampled SVGs and Japanese labels
 ```
 
-The [source repository](https://github.com/domizo/noise-field-lab) is private; viewing it requires repository access. All guide text and images are included in the repository. Read the [complete Markdown guide](docs/NOISE_GUIDE.md) directly on GitHub, or open [the HTML edition](public/docs/index.html) locally. Neither depends on access to a hosted private Site.
+All guide text and images are included in the [source repository](https://github.com/domizo/noise-field-lab). Read the [complete Markdown guide](docs/NOISE_GUIDE.md) directly on GitHub, or open [the HTML edition](public/docs/index.html) locally.
 
 ## Controls at a glance
 
