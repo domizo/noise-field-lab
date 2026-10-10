@@ -22,12 +22,12 @@ test('every local guide link, image and stylesheet resolves',async()=>{
  for(const m of html.matchAll(/(?:href|src)="([^"]+)"/g)){
   const ref=m[1];if(/^(https?:|mailto:)/.test(ref))continue;
   if(ref.startsWith('#')){assert.ok(html.includes(`id="${ref.slice(1)}"`),ref);continue;}
-  const file=path.resolve(docs,ref.split('#')[0]);assert.ok(file.startsWith(path.join(root,'public')),ref);
-  if(ref==='../'){await fs.access(path.join(root,'index.html'));continue;}
+  const file=path.resolve(docs,ref.split(/[?#]/)[0]);assert.ok(file.startsWith(path.join(root,'public')),ref);
+  if(ref.split(/[?#]/)[0]==='../'){await fs.access(path.join(root,'index.html'));continue;}
   await fs.access(file);
  }
  const readme=await fs.readFile(path.join(root,'README.md'),'utf8');assert.match(readme,/\(public\/docs\/index\.html\)/);
- const app=await fs.readFile(path.join(root,'src/App.jsx'),'utf8');assert.match(app,/href="\/docs\/"/);
+ const app=await fs.readFile(path.join(root,'src/App.jsx'),'utf8');assert.ok(app.includes("'/docs/ja/'")&&app.includes("'/docs/'"));
 });
 test('all diagrams have standalone accessible SVG titles and descriptions',async()=>{
  const images=[...html.matchAll(/<img\b[^>]*>/g)].map(m=>attrs(m[0]));
@@ -47,7 +47,7 @@ function markdownAnchors(text){
  return headings.map(h=>h.toLowerCase().replace(/[^\p{L}\p{N}\s_-]/gu,'').replace(/ /g,'-'));
 }
 test('README and full Markdown guide resolve all relative assets, files and anchors',async()=>{
- for(const relative of ['README.md','docs/NOISE_GUIDE.md']){
+ for(const relative of ['README.md','README.ja.md','docs/NOISE_GUIDE.md','docs/NOISE_GUIDE.ja.md','VALIDATION.md','VALIDATION.ja.md']){
   const file=path.join(root,relative),md=await fs.readFile(file,'utf8');
   for(const m of md.matchAll(/!?\[[^\]]*\]\(([^\s)]+)\)/g)){
    const link=m[1];if(/^https?:/.test(link))continue;
@@ -75,4 +75,35 @@ test('source links use the private repository without a bundled source archive',
  await assert.rejects(fs.access(path.join(root,'public/noise-lab-source.zip')),{code:'ENOENT'});
  const pkg=JSON.parse(await fs.readFile(path.join(root,'package.json'),'utf8'));
  for(const script of Object.values(pkg.scripts))assert.doesNotMatch(script,/noise-lab-source|\bzip\b/);
+});
+
+
+test('Japanese hosted guide matches the English structure, formulas and local assets',async()=>{
+ const folder=path.join(docs,'ja'),ja=await fs.readFile(path.join(folder,'index.html'),'utf8');
+ assert.match(ja,/<html lang="ja">/);
+ const ids=source=>[...source.matchAll(/\bid="([^"]+)"/g)].map(m=>m[1]);
+ assert.deepEqual(ids(ja),ids(html));
+ const codes=source=>[...source.matchAll(/<code>([\s\S]*?)<\/code>/g)].map(m=>m[1]);
+ assert.deepEqual(codes(ja),codes(html));
+ for(const [enPath,jaPath]of [['README.md','README.ja.md'],['docs/NOISE_GUIDE.md','docs/NOISE_GUIDE.ja.md']]){
+  const enText=await fs.readFile(path.join(root,enPath),'utf8'),jaText=await fs.readFile(path.join(root,jaPath),'utf8');
+  const math=text=>[...text.matchAll(/```text\n([\s\S]*?)```/g)].map(m=>m[1]);
+  assert.deepEqual(math(jaText),math(enText),jaPath);
+  assert.equal([...jaText.matchAll(/^#{1,6} /gm)].length,[...enText.matchAll(/^#{1,6} /gm)].length,jaPath);
+  assert.equal([...jaText.matchAll(/!\[[^\]]+\]\(/g)].length,[...enText.matchAll(/!\[[^\]]+\]\(/g)].length,jaPath);
+ }
+ assert.equal([...ja.matchAll(/<figcaption>/g)].length,7);
+ for(const tag of ja.matchAll(/<img\b[^>]*>/g)){const image=attrs(tag[0]);assert.ok(image.alt?.length>25);assert.ok(image.src.startsWith('../images/ja/'));}
+ for(const source of [html,ja]){assert.match(source,/data-language="en"/);assert.match(source,/data-language="ja"/);assert.ok(source.includes('https://github.com/domizo/noise-field-lab'));}
+ for(const match of ja.matchAll(/(?:href|src)="([^"]+)"/g)){
+  const ref=match[1];if(/^https?:/.test(ref))continue;
+  if(ref.startsWith('#')){assert.ok(ids(ja).includes(ref.slice(1)));continue;}
+  const target=path.resolve(folder,ref.split(/[?#]/)[0]);assert.ok(target.startsWith(path.join(root,'public')));await fs.access(target);
+ }
+});
+test('Japanese figures regenerate identically and guard their English labels',async()=>{
+ execFileSync(process.execPath,[path.join(root,'scripts/localize-doc-figures.mjs'),'--check'],{cwd:root,timeout:30000,stdio:'pipe'});
+ const manifest=JSON.parse(await fs.readFile(path.join(docs,'images/ja/figure-manifest.json'),'utf8'));
+ assert.ok(JSON.stringify(manifest).includes('ja'));
+ for(const file of (await fs.readdir(path.join(docs,'images/ja'))).filter(name=>name.endsWith('.svg'))){const svg=await fs.readFile(path.join(docs,'images/ja',file),'utf8');assert.match(svg,/lang="ja"/);assert.match(svg,/<title[^>]*>[^<]+<\/title>/);}
 });

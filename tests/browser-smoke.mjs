@@ -2,7 +2,7 @@
 import assert from 'node:assert/strict';
 import { chromium } from 'playwright';
 const browser=await chromium.launch({headless:true,...(process.env.CHROME_PATH?{executablePath:process.env.CHROME_PATH}:{})});
-const context=await browser.newContext({viewport:{width:1536,height:1024}}),page=await context.newPage(),errors=[];
+const context=await browser.newContext({locale:'en-US',viewport:{width:1536,height:1024}}),page=await context.newPage(),errors=[];
 page.on('pageerror',error=>errors.push(error.message));
 async function setRange(label,value){const input=page.getByLabel(label,{exact:true});await input.focus();await input.press('Home');const bounds=await input.evaluate(e=>({min:Number(e.min),step:Number(e.step)||1}));for(let i=0;i<Math.round((value-bounds.min)/bounds.step);i++)await input.press('ArrowRight');}
 async function mode(value){await page.waitForFunction(expected=>document.querySelector('canvas')?.dataset.mode===expected,value);}
@@ -23,10 +23,23 @@ try{
   if(id==='flow'){await page.getByRole('switch',{name:'Direction arrows',exact:true}).click();await page.waitForFunction(()=>document.querySelector('canvas').dataset.arrows==='0');await page.getByRole('button',{name:'Restart particles',exact:true}).click();assert.ok(Number(await page.locator('canvas').getAttribute('data-particles'))>0);}
   await page.getByRole('button',{name:'Reset animation time',exact:true}).click();await page.waitForFunction(()=>document.querySelector('canvas').dataset.time==='0.0000');
  }
+ // Presentation-only language switching must preserve the same WebGL canvas and paused state.
+ const canvas=await page.locator('canvas').elementHandle();
+ const before=await page.locator('canvas').evaluate(e=>({...e.dataset}));
+ const frequency=await page.locator('#frequency').inputValue(),seed=await page.locator('#seed').inputValue();
+ await page.getByRole('button',{name:'日本語',exact:true}).click();
+ await page.waitForFunction(()=>document.documentElement.lang==='ja');
+ assert.equal(await canvas.evaluate(e=>e.isConnected),true);
+ for(const key of ['mode','time','particles','arrows'])assert.equal(await page.locator('canvas').getAttribute(`data-${key}`),before[key]);
+ assert.equal(await page.locator('#frequency').inputValue(),frequency);assert.equal(await page.locator('#seed').inputValue(),seed);
+ assert.equal(await page.getByRole('button',{name:'アニメーションを再生',exact:true}).isVisible(),true);
+ assert.equal(await page.getByLabel('場の周波数',{exact:true}).isVisible(),true);
+ await page.setViewportSize({width:390,height:844});assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=window.innerWidth));
+ await page.getByRole('button',{name:'EN',exact:true}).click();await page.waitForFunction(()=>document.documentElement.lang==='en');
  await page.setViewportSize({width:390,height:844});assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=window.innerWidth));
  assert.equal(await page.getByRole('button',{name:'Reset view',exact:true}).isVisible(),true);
  await page.emulateMedia({reducedMotion:'reduce'});await page.reload();assert.equal(await page.getByRole('button',{name:'Play animation',exact:true}).isVisible(),true);
  await page.getByRole('link',{name:'Illustrated guide'}).click();await page.getByRole('heading',{name:'Read the field',exact:true}).waitFor();assert.equal(await page.locator('figure img').count(),7);
- assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=window.innerWidth+1));await page.getByRole('link',{name:'Open the lab'}).click();await page.locator('canvas[data-frame]').waitFor();
+ assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=window.innerWidth+1));await page.getByRole('link',{name:'日本語',exact:true}).click();await page.getByRole('heading',{name:'場を読み解く',exact:true}).waitFor();assert.equal(await page.locator('figure img').count(),7);await page.getByRole('link',{name:'ラボを開く'}).click();await page.waitForFunction(()=>document.documentElement.lang==='ja');await page.locator('canvas[data-frame]').waitFor();
  assert.deepEqual(errors,[]);console.log('Four-module and guide browser smoke suite passed.');
 }finally{await browser.close();}

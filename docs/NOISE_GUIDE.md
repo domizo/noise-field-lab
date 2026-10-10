@@ -1,5 +1,7 @@
 # Read the field: an illustrated Noise Lab guide
 
+**Language: English · [日本語](NOISE_GUIDE.ja.md)**
+
 [Project README and setup](../README.md) · [HTML edition](../public/docs/index.html)
 
 One smooth function can become a landscape, a folded pattern, or a moving current. This guide explains what each Noise Lab experiment computes, what its controls change, and where the model stops. It can be read directly on GitHub, without running the interactive app.
@@ -406,7 +408,7 @@ npm run docs:figures
 npm run check
 ```
 
-The first command regenerates the six sampled SVG figures using the current math modules. The seventh figure, the surface-projection schematic, is authored separately. The second command runs the project's lint checks, tests and production build, including the documentation checks present in the checkout.
+The first command regenerates the six sampled SVG figures using the current math modules, then produces all seven Japanese-localized figures without changing the sampled data. The seventh figure, the surface-projection schematic, is authored separately. The localizer verifies unchanged drawing geometry, numerical values and mathematical expressions; unexpected English-label changes require translation review. The second command runs the project's lint checks, tests and production build, including the documentation checks present in the checkout.
 
 The figures use fixed seeds and labelled coordinates. They do not depend on generated imagery, browser screenshots, a hosted Site, or a remote application service.
 

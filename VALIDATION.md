@@ -1,9 +1,11 @@
 # Validation
 
+**Language: English · [日本語](VALIDATION.ja.md)**
+
 ## Automated checks
 
 - ESLint: passed
-- Automated tests: 63 passed (56 numerical/geometry checks and 7 documentation checks)
+- Automated tests: 70 passed (56 numerical/geometry checks, 9 documentation checks and 5 localization checks)
 - Vite production build: passed
 - Source review: checked resource disposal, shader source conventions, flow update paths, finite-difference signs, sampler bounds, keyboard controls and reduced-motion initial state
 
@@ -36,3 +38,11 @@ All seven SVGs were rasterized with Inkscape and their pixels visually reviewed 
 README presents the implemented noise constructions with controlled illustrations and links to the complete `docs/NOISE_GUIDE.md`. The Markdown guide includes the full explanation and all seven figures through repository-relative paths, without depending on the private hosted guide. Link tests resolve every relative Markdown asset, file and heading anchor. A read-only GitHub Actions workflow runs the same lint, test and production-build checks on pushes to main and pull requests. Its presence is not a claim that a remote run has passed.
 
 The application and hosted guide link to the private GitHub source repository. Source files are no longer duplicated in a downloadable archive. A regression check verifies the repository links, absence of the old archive and absence of archive-generation package scripts.
+
+## English and Japanese
+
+All four modules, controls, explanations, error messages, canvas accessibility labels and time descriptions have Japanese translations. Both README editions and complete Markdown/HTML guides are linked, with seven localized figures. The language choice follows an explicit URL selection, then a saved preference, then the browser’s primary language; unsupported languages fall back to English. Storage failure does not block the application.
+
+Automated checks cover locale selection, translation placeholders, complete lesson coverage, English/Japanese component rendering without a browser, bilingual guide structure, exact formula parity, links and deterministic Japanese figure regeneration. Source review confirms that switching language changes presentation without resetting simulation parameters, clock, camera, renderer or particle paths. This source-level check and server rendering are not substitutes for interactive browser verification.
+
+The seven Japanese SVGs were rendered with Japanese-capable fonts and visually reviewed. Localization preserves drawing geometry, sampled values, colors and original scientific metadata; the localizer rejects unreviewed English-label changes. Live language switching, responsive Japanese layout and genuine Flow browser captures remain unverified while owner sign-in is unavailable.

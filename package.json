@@ -12,7 +12,7 @@
     "lint": "eslint .",
     "check": "npm run lint && npm test && npm run build",
     "test:browser": "node tests/browser-smoke.mjs",
-    "docs:figures": "node scripts/generate-doc-figures.mjs"
+    "docs:figures": "node scripts/generate-doc-figures.mjs && node scripts/localize-doc-figures.mjs"
   },
   "dependencies": {
     "@fontsource-variable/dm-sans": "^5.3.0",

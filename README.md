@@ -1,8 +1,12 @@
 # Noise Field Lab
 
+**Language: English · [日本語](README.ja.md)**
+
 An interactive Three.js laboratory for **3D noise, animated surfaces and vector flow**. Build a landscape from a scalar field, combine scales, bend coordinates, and follow particles through a volume or along a sphere or torus.
 
 [Illustrated noise guide](docs/NOISE_GUIDE.md) · [Quick start](#quick-start) · [Experiments](#understand-the-noise) · [Validation](VALIDATION.md)
+
+Use the **EN / 日本語** switch in the app without resetting your parameters, time or particle paths. Your first visit follows your browser’s primary language; an explicit choice is remembered when local storage is available. Both languages include the complete guide and localized diagrams.
 
 ## What you can explore
 
@@ -125,7 +129,7 @@ Open the URL printed by Vite. No backend, API key, paid service or application a
 npm run check         # lint, numerical/geometry/docs tests, production build
 npm run build         # static production output in dist/
 npm run preview       # serve the production build
-npm run docs:figures   # regenerate the six sampled SVG diagrams
+npm run docs:figures   # regenerate sampled SVGs and Japanese labels
 ```
 
 The [source repository](https://github.com/domizo/noise-field-lab) is private; viewing it requires repository access. All guide text and images are included in the repository. Read the [complete Markdown guide](docs/NOISE_GUIDE.md) directly on GitHub, or open [the HTML edition](public/docs/index.html) locally. Neither depends on access to a hosted private Site.

@@ -1,0 +1,517 @@
+{
+  "generator": "scripts/localize-doc-figures.mjs",
+  "version": 1,
+  "locale": "ja",
+  "deterministic": true,
+  "sourceDirectory": "public/docs/images",
+  "outputDirectory": "public/docs/images/ja",
+  "localizerSha256": "b2fe50b6515ba16edfbe314d1319e3a965ad04891b9575d4220d115ae7b436cf",
+  "englishGenerator": {
+    "file": "scripts/generate-doc-figures.mjs",
+    "sha256": "0b5232db930f3e04c90cf7da632feee769ddc6ca1bfa228af7d11314b256fad4",
+    "generatedFigureCount": 6
+  },
+  "fontFamily": "Noto Sans CJK JP, Noto Sans JP, Hiragino Kaku Gothic ProN, Yu Gothic, Meiryo, Arial, sans-serif",
+  "preservation": "Text, accessibility language, and font localization only. Original scientific metadata, geometry, data marks, colors, scales, and numerical values are retained. The surface-projection figure is an existing geometric schematic, not an output of the sampled-figure generator.",
+  "figures": [
+    {
+      "file": "noise-algorithms.svg",
+      "title": "1つの場に、3通りの値変換",
+      "caption": "3枚の xz ヒートマップで、アプリの勾配ノイズ、ビロー、リッジのスカラー出力を比較します。シード 42、周波数 1.2、y = 0.37、時刻 0 を共通条件とし、どの図も x,z ∈ [−2.5,2.5]、色の範囲 [−1,1] を使います。各セルの色は中心の標本値に対応し、すべての標本値が表示範囲内に収まります。ビローは 2|1.55 noise|−0.7、リッジはその符号を反転した値です。",
+      "locale": "ja",
+      "localizer": "scripts/localize-doc-figures.mjs",
+      "version": 1,
+      "sourceFile": "../noise-algorithms.svg",
+      "sourceSha256": "46dac2156690312f563c93b3ef1d3e95b5b3d8605cfb53860cbe379198252540",
+      "sourceLabelsSha256": "3818d4abdcd64a685980e9b339b1f86836473ab3882fd7c5bcb648280e119876",
+      "preservedDrawingSha256": "d4ed3b943ea90a9f47f4e9a02b462820925d33e075c1c591b7a5484742f09d9b",
+      "sourceKind": "deterministic sampled scientific figure",
+      "outputSha256": "328af5368b7485d2212aa972d8f72a6e4569f0653231ce04d505d3b44b4ca730",
+      "labelNodeCount": 43,
+      "translatedNodeCount": 14,
+      "originalScientificMetadata": [
+        {
+          "file": "noise-algorithms.svg",
+          "title": "One field, three value transforms",
+          "caption": "Three xz heatmaps show the app’s Gradient, Billow, and Ridged scalar outputs for seed 42, frequency 1.2, y = 0.37, and time 0. All maps cover x,z in [−2.5,2.5] and use the same [−1,1] color scale. Each color cell is one center sample; none exceeds the displayed scale. Billow equals 2|1.55 noise|−0.7 and Ridged is its exact negative.",
+          "seed": 42,
+          "frequency": 1.2,
+          "slice": {
+            "y": 0.37
+          },
+          "time": 0,
+          "domain": {
+            "x": [
+              -2.5,
+              2.5
+            ],
+            "z": [
+              -2.5,
+              2.5
+            ]
+          },
+          "sampling": {
+            "resolution": 64,
+            "location": "cell centers"
+          },
+          "colorRange": [
+            -1,
+            1
+          ],
+          "stats": {
+            "gradient": {
+              "min": -0.79517233065518,
+              "max": 0.6992089611471812
+            },
+            "billow": {
+              "min": -0.6999551780476182,
+              "max": 0.89034466131036
+            },
+            "ridged": {
+              "min": -0.89034466131036,
+              "max": 0.6999551780476182
+            }
+          },
+          "formula": "n=1.55*noise(f*x,f*y,f*z); gradient=n; billow=2*abs(n)-0.7; ridged=0.7-2*abs(n)",
+          "sourceHashes": {
+            "noise.js": "ff0b3055833606d05669bf2cea519ece6cba13f30812aca562a1c7876034416b",
+            "animation.js": "e23f707809c1c060f4cd1bed24f87e9c3ad3c2c000bbfad334921eebf82ab66e",
+            "lessons.js": "68557c48f138c9f18ff18949717f0374e82b5b70b6319edd45aaab4707bb44a9"
+          }
+        }
+      ]
+    },
+    {
+      "file": "frequency-amplitude.svg",
+      "title": "周波数と振幅、それぞれの働き",
+      "caption": "シード 42、y=z=0 の x 軸上の断面を使い、2枚の折れ線グラフで条件をそろえて比較します。左は振幅 1 で周波数 0.65 と 1.6、右は周波数 0.9 で振幅 0.5 と 1.5 を比較しています。どちらも x ∈ [−3,3]、振幅を掛けた値の範囲は [−0.6,0.6] です。表示値はアプリの勾配ノイズのスカラー値に振幅を掛けたもので、振幅は createFields.scalar の外で適用されます。形状ごとの描画係数は省略しており、地形の描画ではさらに 1.65 倍されます。",
+      "locale": "ja",
+      "localizer": "scripts/localize-doc-figures.mjs",
+      "version": 1,
+      "sourceFile": "../frequency-amplitude.svg",
+      "sourceSha256": "d9415ecfb859aaed81ffbc8f188941964544b7ebe2b227a50f9c7ade2003ad1d",
+      "sourceLabelsSha256": "8be1b9f2184f848e49a28e3be348adcbfe471d2cfbc06ad35ea7114b8b583e50",
+      "preservedDrawingSha256": "6b483ac0de6437f617a250577caaeaddc815be25db038afd0a6d6b83252ea204",
+      "sourceKind": "deterministic sampled scientific figure",
+      "outputSha256": "a0c1f8b758fe8c21bc0634db835791eec753e7f7ff2a8f69ab2b2528e685588e",
+      "labelNodeCount": 29,
+      "translatedNodeCount": 11,
+      "originalScientificMetadata": [
+        {
+          "file": "frequency-amplitude.svg",
+          "title": "Two controls, two different effects",
+          "caption": "Two controlled line plots use seed 42 and the x-axis slice y=z=0. Left: frequency 0.65 versus 1.6 at amplitude 1. Right: amplitude 0.5 versus 1.5 at frequency 0.9. Both cover x in [−3,3] and scaled value in [−0.6,0.6]. Scaled value is amplitude times the app’s Gradient scalar value; amplitude is applied outside createFields.scalar. Shape-specific geometric rendering factors are omitted; terrain applies an additional factor of 1.65.",
+          "seed": 42,
+          "slice": {
+            "y": 0,
+            "z": 0
+          },
+          "time": 0,
+          "domain": {
+            "x": [
+              -3,
+              3
+            ]
+          },
+          "scaledValueRange": [
+            -0.6,
+            0.6
+          ],
+          "frequencyPanel": {
+            "frequencies": [
+              0.65,
+              1.6
+            ],
+            "amplitude": 1
+          },
+          "amplitudePanel": {
+            "frequency": 0.9,
+            "amplitudes": [
+              0.5,
+              1.5
+            ]
+          },
+          "samplesPerCurve": 721,
+          "stats": {
+            "frequency_0.65": {
+              "min": -0.16083931866546053,
+              "max": 0.2992464249026357
+            },
+            "frequency_1.6": {
+              "min": -0.2992385388313478,
+              "max": 0.2992385388313477
+            },
+            "amplitude_0.5": {
+              "min": -0.14962321245131788,
+              "max": 0.14961135810063383
+            },
+            "amplitude_1.5": {
+              "min": -0.44886963735395363,
+              "max": 0.4488340743019015
+            }
+          },
+          "formula": "scaledValue=A*1.55*noise(f*x,0,0)",
+          "caveat": "Controlled output-scaling diagram. Shape-specific geometric rendering factors are omitted; terrain uses an additional factor of 1.65.",
+          "sourceHashes": {
+            "noise.js": "ff0b3055833606d05669bf2cea519ece6cba13f30812aca562a1c7876034416b",
+            "animation.js": "e23f707809c1c060f4cd1bed24f87e9c3ad3c2c000bbfad334921eebf82ab66e",
+            "lessons.js": "68557c48f138c9f18ff18949717f0374e82b5b70b6319edd45aaab4707bb44a9"
+          }
+        }
+      ]
+    },
+    {
+      "file": "octave-composition.svg",
+      "title": "重み付きの層を重ねて細部をつくる",
+      "caption": "上段の4つのグラフは、i=0,1,2,3 について、周波数を lacunarity^i 倍した基本ノイズに gain^i を掛け、共通の重みの合計 1.875 で割った寄与を示します。下段はアプリの4オクターブの fBm 出力で、上段の和と浮動小数点精度の範囲で一致することを検証済みです。シード 42、周波数 0.7、ラキュナリティ 2、ゲイン 0.5、y=0.37、z=0.81、振幅 1。すべてのグラフで x ∈ [−3,3]、出力 ∈ [−0.4,0.4] を使います。fBm では基本ノイズをそのまま使い、勾配ノイズのレッスンにある係数 1.55 は掛けません。",
+      "locale": "ja",
+      "localizer": "scripts/localize-doc-figures.mjs",
+      "version": 1,
+      "sourceFile": "../octave-composition.svg",
+      "sourceSha256": "71a7c3b03f5c6a24122edc4ba253f3ef85e98cac28d1c228da7254c5ed722e8a",
+      "sourceLabelsSha256": "3bc4bc45b34d883a57b3e6b042d2409f79cd049897c2273613a052018a898291",
+      "preservedDrawingSha256": "7913136cdbfbe0284d3919a1f1fba29e2b1ca8021e66a33ca34c9ce6fe7071aa",
+      "sourceKind": "deterministic sampled scientific figure",
+      "outputSha256": "33e8a1f93cbd5da567d2e4305e9435687fbd3dbd778b0decde70796fc06da46c",
+      "labelNodeCount": 50,
+      "translatedNodeCount": 15,
+      "originalScientificMetadata": [
+        {
+          "file": "octave-composition.svg",
+          "title": "Build detail from weighted layers",
+          "caption": "The four upper plots show gain^i times base noise at frequency times lacunarity^i, divided by the common weight sum 1.875, for i=0,1,2,3. The lower plot is the app’s four-octave fbm result, verified to equal the sum within floating-point precision. Seed 42, frequency 0.7, lacunarity 2, gain 0.5, y=0.37, z=0.81, amplitude 1. Every plot uses x in [−3,3] and output in [−0.4,0.4]. The fBm branch uses raw base noise, without the Gradient lesson’s factor 1.55.",
+          "seed": 42,
+          "octaves": 4,
+          "frequency": 0.7,
+          "lacunarity": 2,
+          "gain": 0.5,
+          "weightSum": 1.875,
+          "slice": {
+            "y": 0.37,
+            "z": 0.81
+          },
+          "amplitude": 1,
+          "domain": {
+            "x": [
+              -3,
+              3
+            ]
+          },
+          "verticalRange": [
+            -0.4,
+            0.4
+          ],
+          "samplesPerCurve": 721,
+          "maxSumError": 5.551115123125783e-17,
+          "stats": {
+            "octave_1": {
+              "min": -0.1994797613828502,
+              "max": 0.0011594135724509217
+            },
+            "octave_2": {
+              "min": -0.08629396005443636,
+              "max": 0.1142065677681787
+            },
+            "octave_3": {
+              "min": -0.052888045988761165,
+              "max": 0.06028200148879621
+            },
+            "octave_4": {
+              "min": -0.03083518999733601,
+              "max": 0.02681366296252473
+            },
+            "sum": {
+              "min": -0.2651881442190456,
+              "max": 0.11707132492145812
+            }
+          },
+          "formula": "contribution_i=gain^i*noise(p*frequency*lacunarity^i)/sum(gain^j), i,j=0..3; fBm=sum(contribution_i)",
+          "sourceHashes": {
+            "noise.js": "ff0b3055833606d05669bf2cea519ece6cba13f30812aca562a1c7876034416b",
+            "animation.js": "e23f707809c1c060f4cd1bed24f87e9c3ad3c2c000bbfad334921eebf82ab66e",
+            "lessons.js": "68557c48f138c9f18ff18949717f0374e82b5b70b6319edd45aaab4707bb44a9"
+          }
+        }
+      ]
+    },
+    {
+      "file": "domain-warping.svg",
+      "title": "サンプリングする座標をゆがめる",
+      "caption": "4枚の xz ヒートマップで、地形と木目それぞれのワープ強度 0 と 1.6 を比較します。シード 42、周波数 0.8、y=0.37、時刻 0 を共通条件とし、x,z ∈ [−2.5,2.5]、色の範囲 [−0.65,0.65] を使います。地形は、座標をワープさせた後に、ラキュナリティ 2、ゲイン 0.5 の正規化4オクターブ fBm を評価します。木目は 0.65 sin(4π(f hypot(qx,qz)+0.25 noise(f q))) です。ワープ強度 0 でも、木目にはノイズによる位相の揺らぎが含まれるため、完全に乱れのない同心円にはなりません。",
+      "locale": "ja",
+      "localizer": "scripts/localize-doc-figures.mjs",
+      "version": 1,
+      "sourceFile": "../domain-warping.svg",
+      "sourceSha256": "89a85c31ee6e2b2cfb2825b23d4cdd1a559be0dd33511fa7859921d1a75d4505",
+      "sourceLabelsSha256": "71a3a026b67c17a8e8b2daacfc1f5c59ac60ce4470f250c8d14aef48bc704360",
+      "preservedDrawingSha256": "4f4258b147df340c877ab20897bd1c932a1293b6bbfc709e93d98862e1d0d2f7",
+      "sourceKind": "deterministic sampled scientific figure",
+      "outputSha256": "d9a49fbc64c524db46fafe1d7d0c150070e5d0bab0c8990a04d6163e51b71c1c",
+      "labelNodeCount": 52,
+      "translatedNodeCount": 16,
+      "originalScientificMetadata": [
+        {
+          "file": "domain-warping.svg",
+          "title": "Bend the sampling coordinates",
+          "caption": "Four xz heatmaps compare warp strengths 0 and 1.6 for Terrain and Wood at seed 42, frequency 0.8, y=0.37, time 0. Maps cover x,z in [−2.5,2.5] with a shared [−0.65,0.65] color scale. Terrain samples normalized four-octave fBm with lacunarity 2 and gain 0.5 after the coordinate warp. Wood is 0.65 sin(4π(f hypot(qx,qz)+0.25 noise(f q))). Wood has a noise phase perturbation even at zero warp strength; it is not a pure unperturbed ring field.",
+          "seed": 42,
+          "frequency": 0.8,
+          "slice": {
+            "y": 0.37
+          },
+          "time": 0,
+          "domain": {
+            "x": [
+              -2.5,
+              2.5
+            ],
+            "z": [
+              -2.5,
+              2.5
+            ]
+          },
+          "warpStrengths": [
+            0,
+            1.6
+          ],
+          "sampling": {
+            "resolution": 64,
+            "location": "cell centers"
+          },
+          "colorRange": [
+            -0.65,
+            0.65
+          ],
+          "terrain": {
+            "octaves": 4,
+            "lacunarity": 2,
+            "gain": 0.5
+          },
+          "stats": {
+            "terrain_0": {
+              "min": -0.2783345281165092,
+              "max": 0.32249526724546734
+            },
+            "terrain_1.6": {
+              "min": -0.2985715710940105,
+              "max": 0.34537268817491323
+            },
+            "wood_0": {
+              "min": -0.6499992743440074,
+              "max": 0.6499999999386069
+            },
+            "wood_1.6": {
+              "min": -0.6499999990210239,
+              "max": 0.6499998553956283
+            }
+          },
+          "formula": {
+            "warp": "qx=x+w*noise_42(.65*x+17,.65*y,.65*z); qy=y+w*noise_1055(.65*x,.65*y+31,.65*z); qz=z+w*noise_2071(.65*x,.65*y,.65*z+9)",
+            "terrain": "fbm(noise_42,q,{frequency:.8,octaves:4,lacunarity:2,gain:.5})",
+            "wood": "0.65*sin(4*pi*(frequency*hypot(qx,qz)+0.25*noise_42(frequency*q)))"
+          },
+          "sourceHashes": {
+            "noise.js": "ff0b3055833606d05669bf2cea519ece6cba13f30812aca562a1c7876034416b",
+            "animation.js": "e23f707809c1c060f4cd1bed24f87e9c3ad3c2c000bbfad334921eebf82ab66e",
+            "lessons.js": "68557c48f138c9f18ff18949717f0374e82b5b70b6319edd45aaab4707bb44a9"
+          }
+        }
+      ]
+    },
+    {
+      "file": "vector-fields.svg",
+      "title": "ベクトル場をつくる3つの方法",
+      "caption": "3枚の図で、アプリの勾配、回転、勾配の外積による3次元ベクトル場を比較します。シード 42、周波数 0.65、y=0.37 の断面を使い、各図で x,z ∈ [−2,2] を11×11の格子に分け、セルの中心を標本化します。矢印の横成分と縦成分は vx と vz に比例し、共通の線形尺度を使います。個々のベクトルの正規化やクリッピングは行いません。色は vy を含む3次元ベクトル全体の大きさを示します。断面に投影した成分であり、完全な2次元ベクトル場ではないため、2次元の発散がゼロであることは示していません。勾配の中心差分は h=0.005、回転の中心差分は h=0.008 です。",
+      "locale": "ja",
+      "localizer": "scripts/localize-doc-figures.mjs",
+      "version": 1,
+      "sourceFile": "../vector-fields.svg",
+      "sourceSha256": "fd69b27f7f976fdba0a0048cd022d5921a9bf218193126e02193f530026120e1",
+      "sourceLabelsSha256": "c55703e0199387d47a29103d21ffc0441fc5578669b9ebfe708af8d3fd8ce1d6",
+      "preservedDrawingSha256": "8febe271635ad21735c38bd8f9ed132c5a3ae9b5cc6d163e9b62941237271f59",
+      "sourceKind": "deterministic sampled scientific figure",
+      "outputSha256": "46e85b2fc6f3ed888777b092e51a3c6017840b45893fac37e731a747af840425",
+      "labelNodeCount": 41,
+      "translatedNodeCount": 11,
+      "originalScientificMetadata": [
+        {
+          "file": "vector-fields.svg",
+          "title": "Three ways to build a vector field",
+          "caption": "Three panels sample the app’s Gradient, Curl, and Gradient cross 3D vector fields on y=0.37 at seed 42 and frequency 0.65. Each panel contains an 11×11 center-sampled grid over x,z in [−2,2]. Arrow horizontal and vertical components are proportional to vx and vz using one shared linear scale, without normalizing or clipping individual vectors. Color shows the full 3D vector magnitude, including vy. These are projected components on a slice, not complete two-dimensional fields, and the figure makes no 2D divergence claim. Gradient uses centered differences h=0.005; curl uses h=0.008.",
+          "seed": 42,
+          "frequency": 0.65,
+          "slice": {
+            "y": 0.37
+          },
+          "time": 0,
+          "domain": {
+            "x": [
+              -2,
+              2
+            ],
+            "z": [
+              -2,
+              2
+            ]
+          },
+          "sampling": {
+            "resolution": 11,
+            "location": "cell centers"
+          },
+          "arrowComponents": [
+            "vx",
+            "vz"
+          ],
+          "arrowPixelsPerVectorUnit": 16.945831699471604,
+          "maximumArrowLength": 22,
+          "individualVectorNormalization": false,
+          "colorQuantity": "sqrt(vx^2+vy^2+vz^2)",
+          "colorRange": [
+            0,
+            1.5
+          ],
+          "gradientDifferenceStep": 0.005,
+          "curlDifferenceStep": 0.008,
+          "stats": {
+            "gradient": {
+              "maximumMagnitude": 1.0623766527610992,
+              "maximumProjectedMagnitude": 0.8765147571043729
+            },
+            "curl": {
+              "maximumMagnitude": 1.4982454458160877,
+              "maximumProjectedMagnitude": 1.298254366629051
+            },
+            "cross": {
+              "maximumMagnitude": 0.7466057507546695,
+              "maximumProjectedMagnitude": 0.737654473949918
+            }
+          },
+          "potentials": {
+            "a": "noise_42(f*x+2.1,f*y+8.3,f*z+4.7)",
+            "b": "noise_1055(f*x+5.1,f*y+1.3,f*z+9.7)",
+            "c": "noise_2071(f*x+7.1,f*y+3.3,f*z+1.7)"
+          },
+          "formula": {
+            "gradient": "grad(a)",
+            "curl": "curl([a,b,c])",
+            "cross": "cross(grad(a),grad(b))"
+          },
+          "caveat": "The omitted y component and y derivatives matter. This projection does not establish 2D divergence freedom. No advection, cache interpolation, constant-speed transform, or surface projection is shown.",
+          "sourceHashes": {
+            "noise.js": "ff0b3055833606d05669bf2cea519ece6cba13f30812aca562a1c7876034416b",
+            "animation.js": "e23f707809c1c060f4cd1bed24f87e9c3ad3c2c000bbfad334921eebf82ab66e",
+            "lessons.js": "68557c48f138c9f18ff18949717f0374e82b5b70b6319edd45aaab4707bb44a9"
+          }
+        }
+      ]
+    },
+    {
+      "file": "bounded-time.svg",
+      "title": "時間とともにサンプリング位置が動く",
+      "caption": "3枚のヒートマップで、アプリの animatedScalar を時刻 0、15、30 秒で評価します。シード 42、勾配ノイズ、周波数 1.2、元の断面 y=0.37、x,z ∈ [−2.5,2.5]、共通の色範囲 [−1,1] を使います。スカラー値を求める前に、標本点の3座標へ offset(t)=(0.9 sin θ,0.65(1−cos θ),0.75 sin 2θ)、θ=2πt/60 を加えます。表示時刻のオフセットは、浮動小数点の丸め誤差を除いて、それぞれ (0,0,0)、(0.9,0.65,0)、(0,1.3,0) です。時刻は [0,60] に制限され、終点のオフセットは厳密にゼロになります。3次元ノイズの座標を平行移動しており、4次元ノイズではありません。有限の時間軸の終点で場が元に戻っても、移流された粒子が初期位置に戻るとは限りません。",
+      "locale": "ja",
+      "localizer": "scripts/localize-doc-figures.mjs",
+      "version": 1,
+      "sourceFile": "../bounded-time.svg",
+      "sourceSha256": "5b702732b2e0a958b8780b3ac18fa6a1083b26ece198ba6b10b212a4a84b34b0",
+      "sourceLabelsSha256": "45644978dc60faabd4f7084da28110f11e7fd877576c86229b7e096d9af0d731",
+      "preservedDrawingSha256": "fc13cae6f42c5931deb40914aca7fbada096a26f6b3bbde38772cb9a4c7a54d9",
+      "sourceKind": "deterministic sampled scientific figure",
+      "outputSha256": "c765a5771420b13e856f0e7559a05517e5d94c70a5c4d74175899c8951352b48",
+      "labelNodeCount": 45,
+      "translatedNodeCount": 15,
+      "originalScientificMetadata": [
+        {
+          "file": "bounded-time.svg",
+          "title": "Time moves the sampling window",
+          "caption": "Three heatmaps sample the app’s animatedScalar at times 0,15,30 seconds, with seed 42, Gradient algorithm, frequency 1.2, original slice y=0.37, x,z in [−2.5,2.5], and shared color scale [−1,1]. Animation adds offset(t)=(0.9 sin θ,0.65(1−cos θ),0.75 sin 2θ), where θ=2πt/60, to the complete sampling point before scalar evaluation. Offsets at the shown times are (0,0,0), (0.9,0.65,0), and (0,1.3,0), up to floating-point roundoff. Time is clamped to [0,60]; the exact endpoint offset is zero. This is translated 3D noise, not four-dimensional noise. A finite timeline returning to the initial field is not evidence that advected particles return to their initial positions.",
+          "seed": 42,
+          "frequency": 1.2,
+          "algorithm": "gradient",
+          "originalSlice": {
+            "y": 0.37
+          },
+          "domain": {
+            "x": [
+              -2.5,
+              2.5
+            ],
+            "z": [
+              -2.5,
+              2.5
+            ]
+          },
+          "sampling": {
+            "resolution": 64,
+            "location": "cell centers"
+          },
+          "times": [
+            0,
+            15,
+            30
+          ],
+          "offsets": {
+            "0": [
+              0,
+              0,
+              0
+            ],
+            "15": [
+              0.9,
+              0.6499999999999999,
+              9.184850993605148e-17
+            ],
+            "30": [
+              1.1021821192326179e-16,
+              1.3,
+              -1.8369701987210297e-16
+            ]
+          },
+          "duration": 60,
+          "colorRange": [
+            -1,
+            1
+          ],
+          "stats": {
+            "0": {
+              "min": -0.79517233065518,
+              "max": 0.6992089611471812
+            },
+            "15": {
+              "min": -0.7550400494904299,
+              "max": 0.6914916926972227
+            },
+            "30": {
+              "min": -0.7915990397304598,
+              "max": 0.7183967870961665
+            }
+          },
+          "formula": "animatedScalar(p,t)=scalar(p+offset(clamp(t,0,60))); offset(t)=[.9*sin(2*pi*t/60),.65*(1-cos(2*pi*t/60)),.75*sin(4*pi*t/60)]; exact offset=0 at t=0 and t=60",
+          "caveat": "No new seed, fourth noise coordinate, or automatic looping is shown. At t=15 and t=30 the z offsets happen to be zero.",
+          "sourceHashes": {
+            "noise.js": "ff0b3055833606d05669bf2cea519ece6cba13f30812aca562a1c7876034416b",
+            "animation.js": "e23f707809c1c060f4cd1bed24f87e9c3ad3c2c000bbfad334921eebf82ab66e",
+            "lessons.js": "68557c48f138c9f18ff18949717f0374e82b5b70b6319edd45aaab4707bb44a9"
+          }
+        }
+      ]
+    },
+    {
+      "file": "surface-projection.svg",
+      "title": "接平面への投影と曲面上に拘束した積分",
+      "caption": "元の速度を接線成分と取り除く法線成分に分解し、球面またはトーラス面へ投影しながら中点法で積分する手順を示す、局所的な幾何学の模式図です。シミュレーションのスクリーンショットではありません。",
+      "locale": "ja",
+      "localizer": "scripts/localize-doc-figures.mjs",
+      "version": 1,
+      "sourceFile": "../surface-projection.svg",
+      "sourceSha256": "19ec140a84a7fc0b6263cf3fcbf9e7c62a9b7e2b76854fe6b331e098ddf68c6d",
+      "sourceLabelsSha256": "a14f8cf922e0691923c0a7f9db084796237e34a9b7fe11a7f83b16713caadb1a",
+      "preservedDrawingSha256": "543f95d4b7323b7382f980c5feff4949dbaaa93c757bb579e22a01fdc55dcf8e",
+      "sourceKind": "geometric schematic",
+      "outputSha256": "ebe52eef75474e2cd9981b19c0c1043969074a2e623606d2f30402df9c3b1382",
+      "labelNodeCount": 21,
+      "translatedNodeCount": 16,
+      "originalScientificMetadata": []
+    }
+  ]
+}
