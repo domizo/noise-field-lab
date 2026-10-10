@@ -8,6 +8,12 @@ An interactive Three.js laboratory for **3D noise, animated surfaces and vector 
 
 Use the **EN / 日本語** switch in the app without resetting your parameters, time or particle paths. Your first visit follows your browser’s primary language; an explicit choice is remembered when local storage is available. Both languages include the complete guide and localized diagrams.
 
+## Flow in action
+
+![Noise Field Lab’s Japanese Flow interface showing curl flow, direction arrows and particle trails in a 3D volume](docs/images/flow-curl-volume-ja.png)
+
+*Actual app screenshot with the Japanese UI: Flow → Curl in the volume view, with direction arrows and particle trails. Seed 42, field frequency 0.65 and flow speed 1.50. Switch to EN in the app for English controls.*
+
 ## What you can explore
 
 - Four connected experiments: **Noise → Octaves → Warp → Flow**
